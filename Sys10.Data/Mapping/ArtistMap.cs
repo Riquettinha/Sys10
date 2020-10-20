@@ -12,7 +12,7 @@ namespace Sys10.Data.Mapping
     {
         public ArtistMap()
         {
-            ToTable("Genre");
+            ToTable("Artist");
 
             HasKey(t => t.Id);
             Property(t => t.Id).HasColumnName("Id");

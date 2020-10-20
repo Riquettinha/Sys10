@@ -1,7 +1,8 @@
+using Sys10.Data.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 
-namespace Sys10.Data.Models.Mapping
+namespace Sys10.Data.Mapping
 {
     public class UserMap : EntityTypeConfiguration<User>
     {

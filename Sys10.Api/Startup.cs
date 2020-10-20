@@ -27,7 +27,6 @@ namespace Sys10.Api
             services.AddScoped<IArtistService, ArtistService>();
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<IGenreService, GenreService>();
-            services.AddScoped<IGenreService, GenreService>();
 
             services.AddControllers();
         }

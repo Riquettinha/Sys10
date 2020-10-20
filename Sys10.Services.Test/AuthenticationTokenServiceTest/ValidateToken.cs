@@ -33,7 +33,7 @@ namespace Sys10.Services.Test.AuthenticationTokenServiceTest
             var service = new AuthenticationTokenService(mockUnitOfWork.Object);
 
             //Act
-            var result = service.ValidateToken(Guid.NewGuid(), "111111");
+            var result = service.ValidateToken("", "111111");
 
             //Assert
             Assert.NotNull(result);
@@ -60,7 +60,7 @@ namespace Sys10.Services.Test.AuthenticationTokenServiceTest
             var service = new AuthenticationTokenService(mockUnitOfWork.Object);
 
             //Act
-            var result = service.ValidateToken(Guid.NewGuid(), "111111");
+            var result = service.ValidateToken("", "111111");
 
             //Assert
             Assert.NotNull(result);
@@ -89,7 +89,7 @@ namespace Sys10.Services.Test.AuthenticationTokenServiceTest
             var service = new AuthenticationTokenService(mockUnitOfWork.Object);
 
             //Act
-            var result = service.ValidateToken(Guid.NewGuid(), sentToken);
+            var result = service.ValidateToken("", sentToken);
 
             //Assert
             Assert.NotNull(result);

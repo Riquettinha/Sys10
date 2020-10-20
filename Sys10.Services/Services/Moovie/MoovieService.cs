@@ -28,7 +28,7 @@ namespace Sys10.Services.Services
         public Result Create(string name, DateTime releaseDate, string directorName, string countryName, string genreName, string observations)
         {
             var directorId = _artistService.Get(directorName, Data.Enums.Artist.Type.Director);
-            if (directorId == null)
+            if (directorId == Guid.Empty || directorId == null)
                 return new Result()
                 {
                     Status = false,
@@ -36,7 +36,7 @@ namespace Sys10.Services.Services
                 };
 
             var countryId = _countryService.Get(countryName);
-            if (countryId == null)
+            if (countryId == Guid.Empty || countryId == null)
                 return new Result()
                 {
                     Status = false,
@@ -44,7 +44,7 @@ namespace Sys10.Services.Services
                 };
 
             var genreId = _genreService.Get(genreName);
-            if (genreId == null)
+            if (genreId == Guid.Empty || genreId == null)
                 return new Result()
                 {
                     Status = false,
@@ -74,7 +74,7 @@ namespace Sys10.Services.Services
         public Result Edit(string name, DateTime releaseDate, string directorName, string countryName, string genreName, string observations)
         {
             var moovieId = GetId(name);
-            if (moovieId == null)
+            if (moovieId == Guid.Empty || moovieId == null)
                 return new Result()
                 {
                     Status = false,
@@ -96,7 +96,7 @@ namespace Sys10.Services.Services
                 };
 
             var directorId = _artistService.Get(directorName, Data.Enums.Artist.Type.Director);
-            if (directorId == null)
+            if (directorId == Guid.Empty || directorId == null)
                 return new Result()
                 {
                     Status = false,
@@ -104,7 +104,7 @@ namespace Sys10.Services.Services
                 };
 
             var countryId = _countryService.Get(countryName);
-            if (countryId == null)
+            if (countryId == Guid.Empty || countryId == null)
                 return new Result()
                 {
                     Status = false,
@@ -112,7 +112,7 @@ namespace Sys10.Services.Services
                 };
 
             var genreId = _genreService.Get(genreName);
-            if (genreId == null)
+            if (genreId == Guid.Empty || genreId == null)
                 return new Result()
                 {
                     Status = false,
@@ -158,7 +158,7 @@ namespace Sys10.Services.Services
         public Result Remove(string name)
         {
             var moovieId = GetId(name);
-            if (moovieId == null)
+            if (moovieId == Guid.Empty || moovieId == null)
                 return new Result()
                 {
                     Status = false,
@@ -201,7 +201,7 @@ namespace Sys10.Services.Services
         public Result GetBasicInfo(string name)
         {
             var moovieId = GetId(name);
-            if (moovieId == null)
+            if (moovieId == Guid.Empty || moovieId == null)
                 return new Result()
                 {
                     Status = false,

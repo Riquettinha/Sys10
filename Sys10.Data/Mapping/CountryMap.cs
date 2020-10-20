@@ -12,7 +12,7 @@ namespace Sys10.Data.Mapping
     {
         public CountryMap()
         {
-            ToTable("Genre");
+            ToTable("Country");
 
             HasKey(t => t.Id);
             Property(t => t.Id).HasColumnName("Id");

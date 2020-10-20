@@ -11,5 +11,9 @@ namespace Sys10.Data.Context
     public partial class Sys10Context
     {
         public DbSet<User> User { get; set; }
+        public DbSet<Moovie> Moovie { get; set; }
+        public DbSet<Artist> Artist { get; set; }
+        public DbSet<Genre> Genre { get; set; }
+        public DbSet<Country> Country { get; set; }
     }
 }

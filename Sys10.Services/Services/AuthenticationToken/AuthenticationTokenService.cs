@@ -28,10 +28,10 @@ namespace Sys10.Services.Services
             return user.AuthenticationToken;
         }
 
-        public Result ValidateToken(Guid guid, string token)
+        public Result ValidateToken(string name, string token)
         {
             var userTokenData = _unitOfWork.RepositoryBase
-                .Get<User>(u => u.Id == guid)
+                .Get<User>(u => u.Name == name)
                 .Select(u => new { u.AuthenticationToken, u.AuthenticationTokenExpiration })
                 .FirstOrDefault();
 
