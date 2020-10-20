@@ -6,7 +6,9 @@ namespace Sys10.Data.Models
 {
     public class User : ModelBase
     {
-        public User() : base("User", "Id") { }
+        public User() : base("User", "Id")
+        {
+        }
 
         public Guid Id { get; set; }
 
@@ -24,6 +26,7 @@ namespace Sys10.Data.Models
         [Required(ErrorMessage = "O '{0}' é obrigatório")]
         public bool Status { get; set; }
 
-        //public virtual ICollection<CustomerAddress> CustomerAddresses { get; set; }
+        public string AuthenticationToken { get; set; }
+        public DateTime? AuthenticationTokenExpiration { get; set; }
     }
 }

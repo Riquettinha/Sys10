@@ -315,65 +315,7 @@ namespace Sys10.Data.Repository.Base
             }
         }
 
-        public virtual List<T> Get<T>(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
-            params Expression<Func<T, object>>[] includes) where T : ModelBase
-        {
-            using (new System.Transactions.TransactionScope(System.Transactions.TransactionScopeOption.RequiresNew, new System.Transactions.TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted }))
-            {
-                var _DbSet = Context.Set<T>();
-
-                IQueryable<T> query = (System.Linq.IQueryable<T>)_DbSet;
-
-                if (filter != null)
-                {
-                    query = query.Where(filter);
-                }
-
-                if (includes != null)
-                {
-                    query = includes.Aggregate(query, (current, include) => current.Include(include));
-                }
-
-                if (orderBy != null)
-                {
-                    return orderBy(query).ToList();
-                }
-                else
-                {
-                    return query.ToList();
-                }
-            }
-        }
-
-        public virtual List<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            params Expression<Func<TEntity, object>>[] includes)
-        {
-            using (new System.Transactions.TransactionScope(System.Transactions.TransactionScopeOption.RequiresNew, new System.Transactions.TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted }))
-            {
-                IQueryable<TEntity> query = DbSet;
-
-                if (filter != null)
-                {
-                    query = query.Where(filter);
-                }
-
-                if (includes != null)
-                {
-                    query = includes.Aggregate(query, (current, include) => current.Include(include));
-                }
-
-                if (orderBy != null)
-                {
-                    return orderBy(query).ToList();
-                }
-                else
-                {
-                    return query.ToList();
-                }
-            }
-        }
-
-        public virtual IQueryable<TEntity> GetIQueryable(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, params Expression<Func<TEntity, object>>[] includes)
+        public virtual IQueryable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, params Expression<Func<TEntity, object>>[] includes)
         {
             using (new System.Transactions.TransactionScope(System.Transactions.TransactionScopeOption.RequiresNew, new System.Transactions.TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted }))
             {
@@ -400,7 +342,7 @@ namespace Sys10.Data.Repository.Base
             }
         }
 
-        public virtual IQueryable<T> GetIQueryable<T>(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+        public virtual IQueryable<T> Get<T>(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             params Expression<Func<T, object>>[] includes) where T : ModelBase
         {
             using (new System.Transactions.TransactionScope(System.Transactions.TransactionScopeOption.RequiresNew, new System.Transactions.TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted }))

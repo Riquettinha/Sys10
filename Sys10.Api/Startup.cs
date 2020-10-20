@@ -1,18 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Sys10.Data.Context;
-using Sys10.Data.Repository.Base;
 using Sys10.Data.UnitOfWork;
+using Sys10.Services.Services;
 
 namespace Sys10.Api
 {
@@ -25,23 +17,25 @@ namespace Sys10.Api
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddScoped<IABSCardAPIService, ABSCardAPIService>();
             services.AddSingleton<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<IAuthenticationTokenService, AuthenticationTokenService>();
+            services.AddScoped<ICryptService, CryptService>();
+            services.AddScoped<IMoovieService, MoovieService>();
+            services.AddScoped<IArtistService, ArtistService>();
+            services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped<IGenreService, GenreService>();
+            services.AddScoped<IGenreService, GenreService>();
 
             services.AddControllers();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
-            {
                 app.UseDeveloperExceptionPage();
-            }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

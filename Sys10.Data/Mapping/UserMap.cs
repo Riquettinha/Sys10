@@ -14,6 +14,8 @@ namespace Sys10.Data.Models.Mapping
             Property(t => t.Name).HasColumnName("Name").HasMaxLength(500).IsRequired();
             Property(t => t.Password).HasColumnName("Password").HasMaxLength(500).IsRequired();
             Property(t => t.Status).HasColumnName("Status");
+            Property(t => t.AuthenticationToken).HasColumnName("AuthenticationToken").HasMaxLength(6);
+            Property(t => t.AuthenticationTokenExpiration).HasColumnName("AuthenticationTokenExpiration");
         }
     }
 }
