@@ -15,7 +15,7 @@ namespace Sys10.Services.Services
         public Guid? Get(string name)
         {
             var genre = _unitOfWork.RepositoryBase
-                .Get<Data.Models.Artist>(u => u.Name == name)
+                .Get<Data.Models.Genre>(u => u.Name == name)
                 .Select(u => u.Id)
                 .FirstOrDefault();
 

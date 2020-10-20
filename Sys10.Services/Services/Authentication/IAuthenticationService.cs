@@ -1,4 +1,4 @@
-﻿using Sys10.Services.Services.Objects;
+﻿using Sys10.Services.Objects;
 
 namespace Sys10.Services.Services
 {

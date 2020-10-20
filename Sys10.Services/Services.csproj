@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Objects\Moovie\CreateMoovieModel.cs" />
+    <Compile Include="Objects\Moovie\DisplayAttribute.cs" />
+    <Compile Include="Objects\Moovie\EditMoovieModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Artist\ArtistService.cs" />
     <Compile Include="Services\Artist\IArtistService.cs" />
@@ -56,7 +59,7 @@
     <Compile Include="Services\Genre\IGenreService.cs" />
     <Compile Include="Services\Moovie\IMoovieService.cs" />
     <Compile Include="Services\Moovie\MoovieService.cs" />
-    <Compile Include="Objects\MoovieBasic.cs" />
+    <Compile Include="Objects\Moovie\MoovieModel.cs" />
     <Compile Include="Objects\Result.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -32,7 +32,7 @@ namespace Sys10.Services.Test.MoovieServiceTest
                 mockCountryService.Object, mockGenreService.Object);
 
             //Act
-            var result = service.Edit("", DateTime.Now.Brasilia(), "", "", "", "");
+            var result = service.Edit(new Objects.EditMoovieModel());
 
             //Assert
             Assert.NotNull(result);
@@ -64,7 +64,7 @@ namespace Sys10.Services.Test.MoovieServiceTest
                 mockCountryService.Object, mockGenreService.Object);
 
             //Act
-            var result = service.Edit("", DateTime.Now.Brasilia(), "", "", "", "");
+            var result = service.Edit(new Objects.EditMoovieModel() { Id = Guid.NewGuid() });
 
             //Assert
             Assert.NotNull(result);
@@ -100,7 +100,7 @@ namespace Sys10.Services.Test.MoovieServiceTest
                 mockCountryService.Object, mockGenreService.Object);
 
             //Act
-            var result = service.Edit("", DateTime.Now.Brasilia(), "", "", "", "");
+            var result = service.Edit(new Objects.EditMoovieModel() { Id = Guid.NewGuid() });
 
             //Assert
             Assert.NotNull(result);
@@ -140,7 +140,7 @@ namespace Sys10.Services.Test.MoovieServiceTest
                 mockCountryService.Object, mockGenreService.Object);
 
             //Act
-            var result = service.Edit("", DateTime.Now.Brasilia(), "", "", "", "");
+            var result = service.Edit(new Objects.EditMoovieModel() { Id = Guid.NewGuid() });
 
             //Assert
             Assert.NotNull(result);
@@ -183,7 +183,7 @@ namespace Sys10.Services.Test.MoovieServiceTest
                 mockCountryService.Object, mockGenreService.Object);
 
             //Act
-            var result = service.Edit("", DateTime.Now.Brasilia(), "", "", "", "");
+            var result = service.Edit(new Objects.EditMoovieModel() { Id = Guid.NewGuid() });
 
             //Assert
             Assert.NotNull(result);
@@ -230,7 +230,7 @@ namespace Sys10.Services.Test.MoovieServiceTest
                 mockCountryService.Object, mockGenreService.Object);
 
             //Act
-            var result = service.Edit("", DateTime.Now.Brasilia(), "", "", "", "");
+            var result = service.Edit(new Objects.EditMoovieModel() { Id = Guid.NewGuid() });
 
             //Assert
             Assert.NotNull(result);

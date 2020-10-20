@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Sys10.Services.Services.Objects
+namespace Sys10.Services.Objects
 {
-    public class MoovieBasic
+    public class MoovieBasicInfo
     {
         public string Name { get; set; }
         public DateTime ReleaseDate { get; set; }

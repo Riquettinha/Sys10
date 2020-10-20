@@ -1,4 +1,4 @@
-﻿namespace Sys10.Services.Services.Objects
+﻿namespace Sys10.Services.Objects
 {
     public class Result
     {

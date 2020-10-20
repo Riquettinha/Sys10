@@ -80,6 +80,7 @@ namespace Sys10.Services.Test.MoovieServiceTest
             //Arrange
             var moovie = new Moovie()
             {
+                Id = Guid.NewGuid(),
                 Name = "",
                 ReleaseDate = DateTime.Now.Brasilia(),
                 Director = new Artist() { Name = "" },
@@ -93,7 +94,7 @@ namespace Sys10.Services.Test.MoovieServiceTest
               It.IsAny<Expression<Func<Moovie, bool>>>(),
               It.IsAny<Func<IQueryable<Moovie>,
               IOrderedQueryable<Moovie>>>()))
-                 .Returns(new List<Moovie>().AsQueryable());
+                 .Returns(new List<Moovie>() { moovie }.AsQueryable());
             mockUnitOfWork
                 .Setup(moq => moq.RepositoryBase.FirstOrDefault<Moovie>(
                     It.IsAny<Expression<Func<Moovie, bool>>>(),

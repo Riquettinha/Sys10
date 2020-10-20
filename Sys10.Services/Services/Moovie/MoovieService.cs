@@ -1,11 +1,8 @@
 ﻿using Sys10.Data.Models;
 using Sys10.Data.UnitOfWork;
-using Sys10.Services.Services.Objects;
+using Sys10.Services.Objects;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Sys10.Services.Services
 {
@@ -25,113 +22,119 @@ namespace Sys10.Services.Services
             _genreService = genreService;
         }
 
-        public Result Create(string name, DateTime releaseDate, string directorName, string countryName, string genreName, string observations)
+        public Result Create(CreateMoovieModel moovie)
         {
-            var directorId = _artistService.Get(directorName, Data.Enums.Artist.Type.Director);
-            if (directorId == Guid.Empty || directorId == null)
+            var moovieId = GetId(moovie.Name);
+            if (moovieId != null && moovieId != Guid.Empty)
+                return new Result()
+                {
+                    Status = false,
+                    Message = "Filme já existente."
+                };
+
+            var directorId = _artistService.Get(moovie.DirectorName, Data.Enums.Artist.Type.Director);
+            if (directorId == null || directorId == Guid.Empty)
                 return new Result()
                 {
                     Status = false,
                     Message = "Diretor não encontrado."
                 };
 
-            var countryId = _countryService.Get(countryName);
-            if (countryId == Guid.Empty || countryId == null)
+            var countryId = _countryService.Get(moovie.CountryName);
+            if (countryId  == null || countryId  == Guid.Empty)
                 return new Result()
                 {
                     Status = false,
                     Message = "Nacionalidade não encontrada."
                 };
 
-            var genreId = _genreService.Get(genreName);
-            if (genreId == Guid.Empty || genreId == null)
+            var genreId = _genreService.Get(moovie.GenreName);
+            if (genreId  == null || genreId == Guid.Empty)
                 return new Result()
                 {
                     Status = false,
                     Message = "Gênero de filme não encontrado."
                 };
 
-            var moovie = new Moovie()
+            var newMoovieDatabaseModel = new Moovie()
             {
                 Id = Guid.NewGuid(),
-                Name = name,
-                ReleaseDate = releaseDate,
+                Name = moovie.Name,
+                ReleaseDate = moovie.ReleaseDate,
                 DirectorId = (Guid)directorId,
                 CountryId = (Guid)countryId,
                 GenreId = (Guid)genreId,
-                Observations = observations
+                Observations = moovie.Observations
             };
-            _unitOfWork.RepositoryBase.Add(moovie);
+            _unitOfWork.RepositoryBase.Add(newMoovieDatabaseModel);
             _unitOfWork.Commit();
 
             return new Result()
             {
                 Status = true,
-                Message = "Filme adicionado com sucesso!"
+                Message = "Filme adicionado com sucesso!",
+                Object = moovie
             };
         }
 
-        public Result Edit(string name, DateTime releaseDate, string directorName, string countryName, string genreName, string observations)
+        public Result Edit(EditMoovieModel moovie)
         {
-            var moovieId = GetId(name);
-            if (moovieId == Guid.Empty || moovieId == null)
+            if (moovie.Id == null || moovie.Id == Guid.Empty)
+                moovie.Id = GetId(moovie.Name);
+
+            if (moovie.Id == null || moovie.Id == Guid.Empty)
                 return new Result()
                 {
                     Status = false,
                     Message = "Filme não encontrado."
                 };
 
-            var result = Edit((Guid)moovieId, name, releaseDate, directorName, countryName, genreName, observations);
-            return result;
-        }
-
-        public Result Edit(Guid id, string name, DateTime releaseDate, string directorName, string countryName, string genreName, string observations)
-        {
-            var moovie = Get(id);
-            if(moovie == null)
+            var currentDatabaseMoovie = Get((Guid)moovie.Id);
+            if(currentDatabaseMoovie == null)
                 return new Result()
                 {
                     Status = false,
                     Message = "Filme não encontrado."
                 };
 
-            var directorId = _artistService.Get(directorName, Data.Enums.Artist.Type.Director);
-            if (directorId == Guid.Empty || directorId == null)
+            var directorId = _artistService.Get(moovie.DirectorName, Data.Enums.Artist.Type.Director);
+            if (directorId == null || directorId == Guid.Empty)
                 return new Result()
                 {
                     Status = false,
                     Message = "Diretor não encontrado."
                 };
 
-            var countryId = _countryService.Get(countryName);
-            if (countryId == Guid.Empty || countryId == null)
+            var countryId = _countryService.Get(moovie.CountryName);
+            if (countryId  == null || countryId  == Guid.Empty)
                 return new Result()
                 {
                     Status = false,
                     Message = "Nacionalidade não encontrada."
                 };
 
-            var genreId = _genreService.Get(genreName);
-            if (genreId == Guid.Empty || genreId == null)
+            var genreId = _genreService.Get(moovie.GenreName);
+            if (genreId  == null || genreId == Guid.Empty)
                 return new Result()
                 {
                     Status = false,
                     Message = "Gênero de filme não encontrado."
                 };
 
-            moovie.Name = name;
-            moovie.ReleaseDate = releaseDate;
-            moovie.DirectorId = (Guid)directorId;
-            moovie.CountryId = (Guid)countryId;
-            moovie.GenreId = (Guid)genreId;
-            moovie.Observations = observations;
-            _unitOfWork.RepositoryBase.Edit(moovie);
+            currentDatabaseMoovie.Name = moovie.Name;
+            currentDatabaseMoovie.ReleaseDate = moovie.ReleaseDate;
+            currentDatabaseMoovie.DirectorId = (Guid)directorId;
+            currentDatabaseMoovie.CountryId = (Guid)countryId;
+            currentDatabaseMoovie.GenreId = (Guid)genreId;
+            currentDatabaseMoovie.Observations = moovie.Observations;
+            _unitOfWork.RepositoryBase.Edit(currentDatabaseMoovie);
             _unitOfWork.Commit();
 
             return new Result()
             {
                 Status = true,
-                Message = "Filme adicionado com sucesso!"
+                Message = "Filme editado com sucesso!",
+                Object = moovie
             };
         }
 
@@ -151,14 +154,15 @@ namespace Sys10.Services.Services
             return new Result()
             {
                 Status = true,
-                Message = "Filme removido com sucesso!"
+                Message = "Filme removido com sucesso!",
+                Object = moovie.Name
             };
         }
 
         public Result Remove(string name)
         {
             var moovieId = GetId(name);
-            if (moovieId == Guid.Empty || moovieId == null)
+            if (moovieId == null)
                 return new Result()
                 {
                     Status = false,
@@ -180,7 +184,7 @@ namespace Sys10.Services.Services
                     Message = "Filme não encontrado."
                 };
 
-            var basicMoovieInfo = new MoovieBasic()
+            var basicMoovieInfo = new MoovieBasicInfo()
             {
                 Name = moovie.Name,
                 ReleaseDate = moovie.ReleaseDate,
@@ -201,7 +205,7 @@ namespace Sys10.Services.Services
         public Result GetBasicInfo(string name)
         {
             var moovieId = GetId(name);
-            if (moovieId == Guid.Empty || moovieId == null)
+            if (moovieId == null || moovieId == Guid.Empty)
                 return new Result()
                 {
                     Status = false,
